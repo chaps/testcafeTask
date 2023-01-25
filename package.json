@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "testcafe": "^2.2.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0"
   }
 }

@@ -1,4 +1,4 @@
-import { Selector, t } from 'testcafe';
+import { t } from 'testcafe';
 
 export default class DeviceListElement {
     static deviceName = ".device-name";
@@ -11,6 +11,10 @@ export default class DeviceListElement {
         this.deviceElementSelector = deviceElementSelector;
       }
     
+    /**
+     * Asserts and validates that the current device element contains the
+     * expected elements in the DOM.
+     */
     async validateUIElements(){
         await t.expect(this.deviceElementSelector.find(DeviceListElement.deviceName).exists).ok();
         await t.expect(this.deviceElementSelector.find(DeviceListElement.deviceType).exists).ok();
@@ -19,6 +23,16 @@ export default class DeviceListElement {
         await t.expect(this.deviceElementSelector.find(DeviceListElement.deleteButton).exists).ok();
     }
 
+    /**
+     * Asserts that the current device element's values in the DOM
+     * matches the given values passed as arguments
+     * @param  {string} deviceName   
+     *         A string containing the expected deviceName
+     * @param  {string} systemType  
+     *         A string containing the expected systemType
+     * @param  {HDDCapacity} HDDCapacity   
+     *         A string containing the expected hdd Capacity
+     */
     async validateData(deviceName, systemType, HDDCapacity){
         await t.expect(
             this.deviceElementSelector.find(DeviceListElement.deviceName).textContent).contains(deviceName);
@@ -26,6 +40,12 @@ export default class DeviceListElement {
         await t.expect(this.deviceElementSelector.find(DeviceListElement.deviceCapacity).textContent).contains(HDDCapacity);
     }
 
+    /**
+     * Returns an object containing key,values system_name, type and hdd_capacity
+     * related to a device Element.
+     *
+     * @return {Object} 
+     */
     async getData(){
         let data = {
             "system_name": await this.deviceElementSelector.find(DeviceListElement.deviceName).textContent,
